@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">StockApplication</string>
+    <string name="menu_search">Search</string>
+    <string name="this_is_data">this is data</string>
+    <string name="delete">Delete</string>
+    <string name="stocks">Stocks</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="favorites">Favorites</string>
+    <string name="portfoliotext">PORTFOLIO</string>
+    <string name="net_worth">Net Worth</string>
+    <string name="cash_balance">Cash Balance</string>
+    <string name="cashdata">$</string>
+</resources>
+
