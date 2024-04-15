@@ -39,7 +39,6 @@ import java.util.List;
 
 public class MainActivity extends  AppCompatActivity{
 
-    JSONObject CompanyDescData;
     TextView data;
     ProgressBar progressBar;
     Toolbar toolbar;
@@ -47,8 +46,6 @@ public class MainActivity extends  AppCompatActivity{
     ListView listView;
     ArrayAdapter<String> adapter;
     List<String> suggestions;
-
-
 
 
     @Override
@@ -79,75 +76,6 @@ public class MainActivity extends  AppCompatActivity{
         fetchwallet();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//
-//        MenuItem searchItem = menu.findItem(R.id.action_search);
-//        searchView = (SearchView) searchItem.getActionView();
-//
-//        // Set up search view listener
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                // Handle search query submission
-//                progressBar.setVisibility(View.VISIBLE);
-//                fetchDataFromServer(query);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return true;
-//            }
-//        });
-//
-//        return true;
-//    }
-
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_main, menu);
-//
-//        MenuItem searchItem = menu.findItem(R.id.action_search);
-//        searchView = (SearchView) searchItem.getActionView();
-//
-//        // Set up search view listener
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                // Handle search query submission
-//                progressBar.setVisibility(View.VISIBLE);
-//                fetchDataFromServer(query);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                if (newText.length() > 0) {
-//                    // Fetch suggestions for the entered query
-//                    fetchSuggestions(newText);
-//                } else {
-//                    // Clear suggestions if query is empty
-//                    suggestions.clear();
-//                    adapter.notifyDataSetChanged();
-//                }
-//                return true;
-//            }
-//        });
-//
-//        return true;
-//    }
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -156,11 +84,11 @@ public class MainActivity extends  AppCompatActivity{
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) searchItem.getActionView();
 
-        // Set up search view listener
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Handle search query submission
+
                 progressBar.setVisibility(View.VISIBLE);
                 fetchDataFromServer(query);
                 return true;
@@ -169,62 +97,20 @@ public class MainActivity extends  AppCompatActivity{
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.length() > 0) {
-                    // Fetch suggestions for the entered query
                     fetchSuggestions(newText);
-                    // Show the ListView
                     listView.setVisibility(View.VISIBLE);
                 } else {
-                    // Clear suggestions if query is empty
                     suggestions.clear();
                     adapter.notifyDataSetChanged();
-                    // Hide the ListView
                     listView.setVisibility(View.GONE);
                 }
                 return true;
             }
         });
-
         return true;
     }
 
 
-
-
-
-
-
-
-//    private void fetchSuggestions(String query) {
-//        String autoCompleteUrl = "https://finalbackend-419019.wl.r.appspot.com/api/auto/" + query;
-//        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, autoCompleteUrl, null,
-//                new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        suggestions.clear();
-//                        try {
-//                            // Parse the JSON response and add suggestions to the list
-//                            for (int i = 0; i < response.length(); i++) {
-//                                JSONObject suggestion = response.getJSONObject(i);
-//                                String symbol = suggestion.getString("symbol");
-//                                String description = suggestion.getString("description");
-//                                suggestions.add(symbol + " - " + description);
-//                            }
-//                            adapter.notifyDataSetChanged();
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        progressBar.setVisibility(View.GONE);
-//                        Toast.makeText(MainActivity.this, "Error fetching suggestions", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//        Volley.newRequestQueue(this).add(request);
-//    }
 
 
     private void fetchSuggestions(String query) {
@@ -235,14 +121,12 @@ public class MainActivity extends  AppCompatActivity{
                     public void onResponse(JSONArray response) {
                         suggestions.clear();
                         try {
-                            // Parse the JSON response and add suggestions to the list
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject suggestion = response.getJSONObject(i);
                                 String symbol = suggestion.getString("symbol");
                                 String description = suggestion.getString("description");
                                 suggestions.add(symbol + " - " + description);
                             }
-                            // Notify the adapter of the data set change
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -256,7 +140,6 @@ public class MainActivity extends  AppCompatActivity{
                         Toast.makeText(MainActivity.this, "Error fetching suggestions", Toast.LENGTH_SHORT).show();
                     }
                 });
-
         Volley.newRequestQueue(this).add(request);
     }
 
@@ -269,9 +152,7 @@ public class MainActivity extends  AppCompatActivity{
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, companyurl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
                 try {
-//                    CompanyDescData = response;
                     String exchange = response.getString("exchange");
                     String finnhubIndustry = response.getString("finnhubIndustry");
 
@@ -290,31 +171,29 @@ public class MainActivity extends  AppCompatActivity{
             }
         });
         Volley.newRequestQueue(this).add(request);
-
-
     }
-
-
 
     private void fetchwallet() {
         String walletUrl = "https://finalbackend-419019.wl.r.appspot.com/api/get-wallet";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, walletUrl, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, walletUrl, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
                 try {
-                    JSONArray data = response.getJSONArray("data");
-                    JSONObject walletData = data.getJSONObject(0);
+                    // Assuming there is only one object in the array
+                    JSONObject walletData = response.getJSONObject(0);
                     double money = walletData.getDouble("money");
 
-                    // Format the money value to include a "$" sign
                     String formattedMoney = String.format("$%.2f", money);
 
-                    // Update the TextView with the formatted money value
                     TextView moneyTextView = findViewById(R.id.moneyTextView);
                     moneyTextView.setText(formattedMoney);
+
+                    progressBar.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Error parsing wallet data", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             }
         }, new Response.ErrorListener() {
