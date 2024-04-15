@@ -90,7 +90,6 @@ public class MainActivity extends  AppCompatActivity{
             public boolean onQueryTextSubmit(String query) {
 
                 progressBar.setVisibility(View.VISIBLE);
-                fetchDataFromServer(query);
                 return true;
             }
 
@@ -144,35 +143,6 @@ public class MainActivity extends  AppCompatActivity{
     }
 
 
-
-    private void fetchDataFromServer(String query) {
-        data = findViewById(R.id.data);
-        String companyurl = "https://finalbackend-419019.wl.r.appspot.com/api/companydesc/" + query;
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, companyurl, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    String exchange = response.getString("exchange");
-                    String finnhubIndustry = response.getString("finnhubIndustry");
-
-                    String allData = exchange + finnhubIndustry;
-                    data.setText(allData);
-                    progressBar.setVisibility(View.GONE);
-
-                }catch (Exception e){
-
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-
-            }
-        });
-        Volley.newRequestQueue(this).add(request);
-    }
-
     private void fetchwallet() {
         String walletUrl = "https://finalbackend-419019.wl.r.appspot.com/api/get-wallet";
 
@@ -180,7 +150,6 @@ public class MainActivity extends  AppCompatActivity{
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    // Assuming there is only one object in the array
                     JSONObject walletData = response.getJSONObject(0);
                     double money = walletData.getDouble("money");
 
@@ -203,8 +172,6 @@ public class MainActivity extends  AppCompatActivity{
                 Toast.makeText(MainActivity.this, "Error fetching wallet data", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // Add the request to the Volley queue
         Volley.newRequestQueue(this).add(request);
     }
 
