@@ -1,11 +1,13 @@
 package com.example.stockapplication;
 
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -17,10 +19,13 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,13 +44,12 @@ import java.util.List;
 
 public class MainActivity extends  AppCompatActivity{
 
-    TextView data;
     ProgressBar progressBar;
     Toolbar toolbar;
     SearchView searchView;
     ListView listView;
-    ArrayAdapter<String> adapter;
     List<String> suggestions;
+    ArrayAdapter<String> suggestionAdapter;
 
 
     @Override
@@ -61,20 +65,18 @@ public class MainActivity extends  AppCompatActivity{
 
 
         progressBar = findViewById(R.id.progressBar);
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         progressBar.setVisibility(View.VISIBLE);
 
         listView = findViewById(R.id.listView);
         suggestions = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, suggestions);
-        listView.setAdapter(adapter);
-
+        suggestionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, suggestions);
+        listView.setAdapter(suggestionAdapter);
 
         fetchwallet();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,62 +86,20 @@ public class MainActivity extends  AppCompatActivity{
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) searchItem.getActionView();
 
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 progressBar.setVisibility(View.VISIBLE);
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 0) {
-                    fetchSuggestions(newText);
-                    listView.setVisibility(View.VISIBLE);
-                } else {
-                    suggestions.clear();
-                    adapter.notifyDataSetChanged();
-                    listView.setVisibility(View.GONE);
-                }
+                fetchSuggestions(newText);
                 return true;
             }
         });
+
         return true;
-    }
-
-
-
-
-    private void fetchSuggestions(String query) {
-        String autoCompleteUrl = "https://finalbackend-419019.wl.r.appspot.com/api/auto/" + query;
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, autoCompleteUrl, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        suggestions.clear();
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject suggestion = response.getJSONObject(i);
-                                String symbol = suggestion.getString("symbol");
-                                String description = suggestion.getString("description");
-                                suggestions.add(symbol + " - " + description);
-                            }
-                            adapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(MainActivity.this, "Error fetching suggestions", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        Volley.newRequestQueue(this).add(request);
     }
 
 
@@ -168,25 +128,66 @@ public class MainActivity extends  AppCompatActivity{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Handle error
                 Toast.makeText(MainActivity.this, "Error fetching wallet data", Toast.LENGTH_SHORT).show();
             }
         });
+
         Volley.newRequestQueue(this).add(request);
     }
 
+
+    private void fetchSuggestions(String query) {
+        if (query.isEmpty()) {
+            suggestions.clear();
+            suggestionAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        String suggestionUrl = "https://finalbackend-419019.wl.r.appspot.com/api/auto/" + query;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, suggestionUrl, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray resultArray = response.getJSONArray("result");
+                    suggestions.clear();
+                    for (int i = 0; i < resultArray.length(); i++) {
+                        JSONObject suggestionObject = resultArray.getJSONObject(i);
+                        String symbol = suggestionObject.getString("symbol");
+                        String description = suggestionObject.getString("description");
+
+                        if (!symbol.contains(".")) {
+                            suggestions.add(symbol + " | " + description);
+                        }
+                    }
+                    suggestionAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        Volley.newRequestQueue(this).add(request);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = (String) parent.getItemAtPosition(position);
+                String[] parts = selectedItem.split("\\|");
+                String symbol = parts[0].trim();
+                handleSymbolSelection(symbol);
+            }
+        });
+    }
+
+    private void handleSymbolSelection(String symbol) {
+        searchView.setQuery(symbol, true);
+    }
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

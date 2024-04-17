@@ -10,5 +10,6 @@
     <string name="net_worth">Net Worth</string>
     <string name="cash_balance">Cash Balance</string>
     <string name="cashdata">$</string>
+    <string name="favourites">FAVORITES</string>
 </resources>
 
