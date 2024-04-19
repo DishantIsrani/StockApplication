@@ -9,7 +9,9 @@
     <string name="portfoliotext">PORTFOLIO</string>
     <string name="net_worth">Net Worth</string>
     <string name="cash_balance">Cash Balance</string>
-    <string name="cashdata">$</string>
+
+    <string name="dollar">$</string>
     <string name="favourites">FAVORITES</string>
+    <string name="powered_by_finnhub"> <a href = "https://finnhub.io/">Powered By Finnhub</a></string>
 </resources>
 

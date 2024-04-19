@@ -1,7 +1,11 @@
 package com.example.stockapplication;
 
+
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -74,6 +78,9 @@ public class MainActivity extends  AppCompatActivity{
         suggestionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, suggestions);
         listView.setAdapter(suggestionAdapter);
 
+        TextView finnhublink = findViewById(R.id.finnhublink);
+        finnhublink.setMovementMethod(LinkMovementMethod.getInstance());
+
         fetchwallet();
     }
 
@@ -90,6 +97,7 @@ public class MainActivity extends  AppCompatActivity{
             @Override
             public boolean onQueryTextSubmit(String query) {
                 progressBar.setVisibility(View.VISIBLE);
+
                 return true;
             }
             @Override

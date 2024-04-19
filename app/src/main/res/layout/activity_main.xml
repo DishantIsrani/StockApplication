@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -43,6 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--        android:elevation="4dp"-->
 
 
     <TextView
@@ -127,21 +129,22 @@
 
     <TextView
         android:id="@+id/moneyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="119dp"
+        android:layout_height="27dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="16dp"
+        android:text="@string/dollar"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Cash" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/finnhublink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="add link to finnhub"
+        android:text="@string/powered_by_finnhub"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/favorites" />
