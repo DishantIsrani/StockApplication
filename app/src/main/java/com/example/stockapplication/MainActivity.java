@@ -97,7 +97,9 @@ public class MainActivity extends  AppCompatActivity{
             @Override
             public boolean onQueryTextSubmit(String query) {
                 progressBar.setVisibility(View.VISIBLE);
-
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
                 return true;
             }
             @Override
