@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/white">
+
+    <!-- First row -->
+    <LinearLayout
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- 1st TextView on the left -->
+        <TextView
+            android:id="@+id/companyfav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+
+        <!-- 2nd TextView on the right -->
+        <TextView
+            android:id="@+id/latestpricefav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:gravity="end"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Second row -->
+    <LinearLayout
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- 3rd TextView below the 1st TextView of the first row -->
+        <TextView
+            android:id="@+id/industryfav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <!-- ImageView -->
+        <ImageView
+            android:id="@+id/changeIconfav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- 4th TextView below the 2nd TextView of the first row -->
+        <TextView
+            android:id="@+id/changefav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <!-- 5th TextView right next to the 4th TextView in the same row -->
+        <TextView
+            android:id="@+id/changepricefav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/rightArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="375dp"
+        android:layout_marginTop="-40dp"
+        android:layout_marginRight="0dp"
+        android:src="@drawable/right_arrow" />
+
+</LinearLayout>
+
