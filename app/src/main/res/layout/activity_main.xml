@@ -31,34 +31,25 @@
         app:titleTextColor="@android:color/black" />
 
 
+    <!--        android:elevation="4dp"-->
+
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="16dp"
-        android:clickable="true"
         android:background="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--        android:elevation="4dp"-->
-
-
-    <TextView
-        android:id="@+id/data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="384dp"
-        android:text="@string/this_is_data"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:clickable="true"
+        android:divider="@null"
+        android:dividerHeight="10dp"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/portfolio"
@@ -77,21 +68,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="@string/portfoliotext"
+        android:textStyle="bold"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/portfolio"
         app:layout_constraintStart_toStartOf="@+id/portfolio"
         app:layout_constraintTop_toTopOf="@+id/portfolio" />
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/moneyTextView" />
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/favorites"
         android:layout_width="413dp"
         android:layout_height="31dp"
-        android:layout_marginTop="144dp"
         android:background="#D8D7D7"
         android:title="@string/favorites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewport" />
 
     <TextView
         android:id="@+id/favouritetext"
@@ -99,19 +98,28 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="@string/favourites"
+        android:textStyle="bold"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/favorites"
         app:layout_constraintStart_toStartOf="@+id/favorites"
         app:layout_constraintTop_toTopOf="@+id/favorites" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewfav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toBottomOf="@id/favorites" />
+
+
     <TextView
         android:id="@+id/networth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
-        android:textSize="20sp"
         android:text="@string/net_worth"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/portfolio" />
 
@@ -119,21 +127,21 @@
         android:id="@+id/Cash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="14dp"
         android:text="@string/cash_balance"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/networth"
         app:layout_constraintTop_toBottomOf="@+id/portfolio" />
 
 
     <TextView
         android:id="@+id/moneyTextView"
-        android:layout_width="119dp"
-        android:layout_height="27dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/dollar"
+        android:layout_marginEnd="45dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -143,10 +151,50 @@
         android:id="@+id/finnhublink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:text="@string/powered_by_finnhub"
+        android:textStyle="italic"
+        android:textColorLink="#888585"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorites" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewfav" />
+
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="11dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/portfolio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/networthdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/networth" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="#D8D7D7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moneyTextView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
