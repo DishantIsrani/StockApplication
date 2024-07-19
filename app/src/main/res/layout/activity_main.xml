@@ -30,10 +30,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@android:color/black" />
 
-
-    <!--        android:elevation="4dp"-->
-
-
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

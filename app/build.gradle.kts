@@ -41,4 +41,10 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.volley)
+    implementation (libs.webkit)
+    implementation(libs.recyclerview)
+    implementation(libs.glide)
+    implementation(libs.recyclerview.swipedecorator)
+    implementation(libs.picasso)
+    annotationProcessor(libs.compiler)
 }

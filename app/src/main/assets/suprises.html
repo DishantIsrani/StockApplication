@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprises Chart</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+
+<body>
+    
+    <div id="container"></div>
+    
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var query = AndroidInterface.getQuery();
+            $.getJSON("https://finalbackend-419019.wl.r.appspot.com/api/suprises/" + query, function (data) {
+                const period = [];
+                const actualdata = [];
+                const estimatedata = [];
+
+
+                // Process data
+                data.forEach(function (item) {
+                    period.push(`${item.period} </br> Suprises: ${item.surprise} `);
+                    actualdata.push(item.actual);
+                    estimatedata.push(item.estimate);
+                });
+
+                // Create Highcharts chart
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'spline'
+                    },
+                    title: {
+                        text: 'Historical EPS Surprises'
+                    },
+                    xAxis: {
+                        categories: period,
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Quaterly EPS'
+                        },
+                        labels: {
+                            format: '{value}'
+                        }
+                    },
+                    tooltip: {
+                        crosshairs: true,
+                        shared: true
+                    },
+                    series: [{
+                        name: 'Actual',
+                        data: actualdata
+                    }, {
+                        name: 'Estimate',
+                        data: estimatedata
+                    }
+                    ]
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>

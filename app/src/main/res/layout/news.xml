@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/cardlarge"
+        android:elevation="4dp"
+        app:cardCornerRadius="20dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:contentDescription="@string/largenewsimage" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/Sourcelarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardlarge"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/titleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Sourcelarge"
+        android:layout_marginTop="1dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardsmall"
+        android:layout_width="100dp"
+        android:layout_height="85dp"
+        android:layout_below="@id/cardlarge"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="2dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/imageSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/smallnewsimage" />
+    </androidx.cardview.widget.CardView>
+
+
+
+    <!--        <ImageView-->
+<!--            android:id="@+id/imageSmall"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="95dp"-->
+<!--            android:layout_below="@id/cardlarge"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_marginStart="296dp"-->
+<!--            android:layout_marginTop="2dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:contentDescription="@string/smallnewsimage" />-->
+<!--    -->
+
+    <TextView
+        android:id="@+id/sourceTimeSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_toEndOf="@+id/source"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="282dp"
+        android:layout_height="62dp"
+        android:layout_below="@id/sourceTimeSmall"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

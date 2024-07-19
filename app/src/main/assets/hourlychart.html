@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hourly Chart</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+
+<body>
+    <div id="chartContainer" style="padding-top: 25px;"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var query = AndroidInterface.getQuery();
+            const flag = AndroidInterface.getFlag();
+            $.getJSON("https://finalbackend-419019.wl.r.appspot.com/api/hourcharts/" + query, function (data) {
+                var prices = [];
+                var timestamps = [];
+
+              
+                data.results.forEach(function (result) {
+                    var date = new Date(result.t);
+                    var time = ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2)
+                    prices.push(result.c);
+                    timestamps.push(time);
+                });
+
+             
+                Highcharts.chart('chartContainer', {
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        text: `${query} Hourly Stock Prices`
+                    },
+                    xAxis: {
+                        categories: timestamps, 
+                        tickInterval: Math.floor(timestamps.length / 4 ),
+                        title: {
+                            text: 'Time'
+                        }
+                    },
+                    yAxis: {
+                        title:{
+                            text: '',
+                        },
+                        opposite:true,
+                    },
+                    plotOptions: {
+                        series: {
+                            color: flag == 0 ? ("GREEN") : ("RED"),
+                            showInLegend: false,
+                            marker: {
+                                enabled: false,
+                            }
+                        }
+                    },
+                    series: [{
+                        // name: 'Price',
+                        data: prices 
+                    }]
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
